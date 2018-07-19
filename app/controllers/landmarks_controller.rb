@@ -10,13 +10,18 @@ class LandmarksController < ApplicationController
     erb :'landmarks/new'
   end
 
+  get '/landmarks/:id/edit' do
+    @landmark = Landmark.find(params[:id])
+    @figures = Figure.all
+    erb :'landmarks/edit'
+  end
+
   get '/landmarks/:id' do
     @landmark = Landmark.find(params[:id])
     erb :'landmarks/show'
   end
 
   post '/landmarks' do
-    # binding.pry
     landmark = Landmark.create(params[:landmark])
     if !params[:figure][:name].empty?
       figure = Figure.create(name: params[:figure][:name])
@@ -26,6 +31,10 @@ class LandmarksController < ApplicationController
     landmark.figure = figure
     landmark.save
     redirect to '/landmarks'
+  end
+
+  post '/landmarks/:id' do
+    binding.pry
   end
 
 end
