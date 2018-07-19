@@ -30,15 +30,30 @@ class FiguresController < ApplicationController
        new_title = Title.create(name: params[:title][:name])
        @figure.titles << new_title
     end
-
     @figure.landmark_ids = params[:landmark][:id]
     if !params[:landmark][:name].empty?
       new_landmark = Landmark.create(name: params[:landmark][:name], year_completed: params[:landmark][:year_completed])
       @figure.landmarks << new_landmark
     end
-
     @figure.save
-    redirect to '/figures'
+    redirect to "/figures/#{@figure.id}"
+  end
+
+  patch'/figures/:id' do
+    @figure = Figure.find(params[:id])
+    @figure.update(params[:figure])
+    @figure.title_ids = params[:title][:id]
+    if !params[:title][:name].empty?
+       new_title = Title.create(name: params[:title][:name])
+       @figure.titles << new_title
+    end
+    @figure.landmark_ids = params[:landmark][:id]
+    if !params[:landmark][:name].empty?
+      new_landmark = Landmark.create(name: params[:landmark][:name], year_completed: params[:landmark][:year_completed])
+      @figure.landmarks << new_landmark
+    end
+    @figure.save
+    redirect to "/figures/#{@figure.id}"
   end
 
 end
