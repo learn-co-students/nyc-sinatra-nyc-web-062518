@@ -6,5 +6,8 @@
   <tr>
     <td><%= @landmark.name %></td>
     <td><%= @landmark.year_completed %></td>
+    <% if @landmark.figure %>
+      <td><%= @landmark.figure.name %></td>
+    <% end %>
   </tr>
 <table>
