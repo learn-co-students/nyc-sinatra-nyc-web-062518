@@ -1,0 +1,10 @@
+<%= @figure.name %>
+
+<h1>LIST OF TITLES</h1>
+<% @figure.titles.each do |title| %>
+  <%= title.name %>
+<% end %>
+<form action="/figures/<%= @figure.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete">
+</form>
